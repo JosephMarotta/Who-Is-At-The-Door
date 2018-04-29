@@ -8,8 +8,8 @@ var queryString = require('querystring');
 var firebase = require('firebase');
 
 firebase.initializeApp({
-  databaseURL: '<firebaseURL>',
-  serviceAccount: './<firebaseSecurityProfile>.json'
+  databaseURL: 'https://mufacrec.firebaseio.com/',
+  serviceAccount: './facrecSP.json'
 });
 
 /* Access to database */
