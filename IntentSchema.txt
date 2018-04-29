@@ -1,31 +1,56 @@
 {
-  "intents": [
-    {
-      "intent": "SetNameIntent",
-      "slots": [
-        {
-          "name": "UserFirstName",
-          "type": "AMAZON.US_FIRST_NAME"
+    "interactionModel": {
+        "languageModel": {
+            "invocationName": "door",
+            "intents": [
+                {
+                    "name": "SetFirstNameIntent",
+                    "slots": [
+                        {
+                            "name": "UserFirstName",
+                            "type": "AMAZON.US_FIRST_NAME"
+                        }
+                    ],
+                    "samples": [
+                        "add {UserFirstName}",
+                        "remember {UserFirstName}",
+                        "set {UserFirstName}",
+                        "{UserFirstName}"
+                    ]
+                },
+                {
+                    "name": "DoorIntent",
+                    "slots": [],
+                    "samples": [
+                        "who's there",
+                        "who's at the door",
+                        "tell me who is at the door",
+                        "who is there",
+                        "who is at the door"
+                    ]
+                },
+                {
+                    "name": "AMAZON.YesIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.NoIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.HelpIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.StopIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.CancelIntent",
+                    "samples": []
+                }
+            ],
+            "types": []
         }
-      ]
-    },
-    {
-      "intent": "DoorIntent"
-    },
-    {
-      "intent": "AMAZON.YesIntent"
-    },
-    {
-      "intent": "AMAZON.NoIntent"
-    },
-    {
-      "intent": "AMAZON.HelpIntent"
-    },
-    {
-      "intent": "AMAZON.StopIntent"
-    },
-    {
-      "intent": "AMAZON.CancelIntent"
     }
-  ]
 }
