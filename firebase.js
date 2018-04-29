@@ -10,29 +10,33 @@ const fs = require('fs');
 var photoNum = 0;
 
 firebase.initializeApp({
-  databaseURL: '<firebaseURLhere>',
-  serviceAccount: './<firebaseSecurityProfile>.json'
+  databaseURL: 'https://mufacrec.firebaseio.com',
+  serviceAccount: './facrecSP.json'
 });
 
 /* Local Database Access */
 var ref = firebase.database().ref("Alexa");
 
-var name = './photo/image.jpg';
+var name = 'image.jpg';
+var base64data;
 
 /* The Raspberry Pi is always listening to the database to see if voice commands to Alexa are issued */
 ref.on("child_changed", function(snap) {
   console.log("initial data loaded!", snap.key +":",snap.val());
   if(snap.val() == 'callFacialRecog'){                                              //After the Alexa application is triggered by onLaunch or DoorIntent
-    const Raspistill = spawn('raspistill',['-e','jpg','-o','./photo/image.jpg']);   //Snaps a picture of whatever is in front of the door
+    const Raspistill = spawn('raspistill',['-e','jpg','-o','image.jpg']);   //Snaps a picture of whatever is in front of the door
     Raspistill.on('close', (code) => {                                              
       fs.readFile(name, function(err, data) {
-         var base64data = new Buffer(data).toString('base64');
+         if(err){
+              throw err;
+         }
+         base64data = new Buffer(data).toString('base64');
          var options = {                                                
           url: 'https://api.kairos.com/recognize',
           headers:{
             'Content-Type': 'application/json',
-            'app_id': '<KairosAppID>',
-            'app_key': '<KairosAppKey>'
+            'app_id': '35e2e04d',
+            'app_key': 'e39ae651e5be8a834a1fe0b661cc4d6c'
           },
           body: JSON.stringify({
             image: base64data,                                              //After picture is taken, image data is set on the facial recognition API
@@ -69,8 +73,8 @@ ref.on("child_changed", function(snap) {
         url: 'https://api.kairos.com/enroll',
         headers:{
           'Content-Type': 'application/json',
-          'app_id': '<KairosAppID>',
-          'app_key': '<KairosAppKey>'
+          'app_id': '35e2e04d',
+          'app_key': 'e39ae651e5be8a834a1fe0b661cc4d6c'
         },
         body: JSON.stringify({  
           image: base64data,                            //Uses the previously taken picture of the person's face to train
